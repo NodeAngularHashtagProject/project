@@ -36,7 +36,7 @@
 
 	  </script>
 <body>
-<div ng-app="Hashatag" > 
+<div ng-app="Hashatag" ng-controller="InstagramCtrl"> 
 <div class="search_input">
 	<span class="start">#</span><input type="text" 
 		ng-model="search" 
@@ -52,29 +52,7 @@
 
 </div>
 <div class="wrapper">
-<div ng-controller="TwitterCtrl">
-	<ul id="twitter-list" class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
-		<div class="grid-sizer"></div>
-    	<li class="twitter-item" ng-repeat="item in items">
-    		<div class="videourl" style="display:none">{{item.videos.low_bandwidth.url}}</div>
-    		<div class="image">
-    			<a ng-href="{{item.link}}" target="_blank">
-            		<img width="250" ng-src="{{ item.images.standard_resolution.url }}" src="" alt="">
-        		</a>
-        	</div>
-        	<div class="likes">
-        		<span class="fa fa-heart"> {{item.likes.count}}</span>
-        	</div>
-        	<div class="user">
-        		<a ng-href="https://instagram.com/{{item.user.username}}" target="_blank">{{item.user.username}}</a>
-       		</div>
-        	<div class="text">
-        		{{item.caption.text}}
-        	</div>
-    	</li>
-	</ul>
-</div>
-<div ng-controller="InstagramCtrl">
+<div >
 <ul id="instagram-list" class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
 	<div class="grid-sizer"></div>
     <li class="instagram-item" ng-repeat="item in items">
