@@ -1,0 +1,181 @@
+body{
+	background-color:#E2E2E2;
+}
+.wrapper
+{
+    max-width: 1330px;
+    margin: 0 auto;
+}
+	span.start{
+		font-size:25px;
+	}
+	.search_input {
+    	margin-bottom: 50px;
+    	margin-top: 50px;
+    	text-align: center;
+    	width: 100%;
+	}
+		.search_input #search {
+			background: #d6d6d6 none repeat scroll 0 0;
+			border: 0 none;
+    		font-size: 25px;
+    		height: 30px;
+    		padding: 10px;
+		}
+
+	.filter{
+		width:100%;
+		text-align: center;
+	}
+		.filter #check_instagram,
+		.filter #check_twitter,
+		.filter #check_facebook{
+			float:left;
+		}
+
+		input[type=checkbox] {
+    		display:none;
+  		}
+  		input#twitter[type=checkbox] + label{
+       		background-image: url("../images/twitter1.png");
+       		background-size: 20px 20px;
+       		height: 20px;
+       		width: 20px;
+       		display:inline-block;
+       		padding: 0 0 0 0px;
+       		cursor:pointer;
+   		}
+   
+   		input#twitter[type=checkbox]:checked + label{
+        	background-image: url("../images/twitter_color.png");
+       		background-size: 20px 20px;
+       		height: 20px;
+       		width: 20px;
+        	display:inline-block;
+        	padding: 0 0 0 0px;
+        	cursor:pointer;
+   		}
+
+   		input#instagram[type=checkbox] + label{
+       		background-image: url("../images/instagram12.png");
+       		background-size: 20px 20px;
+       		height: 20px;
+       		width: 20px;
+       		display:inline-block;
+       		padding: 0 0 0 0px;
+       		cursor:pointer;
+   		}
+   
+   		input#instagram[type=checkbox]:checked + label{
+        	background-image: url("../images/instagram_color.png");
+       		background-size: 20px 20px;
+       		height: 20px;
+       		width: 20px;
+        	display:inline-block;
+        	padding: 0 0 0 0px;
+        	cursor:pointer;
+   		}
+
+   		input#facebook[type=checkbox] + label{
+       		background-image: url("../images/facebook55.png");
+       		background-size: 20px 20px;
+       		height: 20px;
+       		width: 20px;
+       		display:inline-block;
+       		padding: 0 0 0 0px;
+       		cursor:pointer;
+   		}
+   
+   		input#facebook[type=checkbox]:checked + label{
+        	background-image: url("../images/facebook_color.png");
+       		background-size: 20px 20px;
+       		height: 20px;
+       		width: 20px;
+        	display:inline-block;
+        	padding: 0 0 0 0px;
+        	cursor:pointer;
+   		}
+
+	#instagram-list{
+		list-style-type: 
+		none; padding:0;
+	}
+    #instagram-list .grid-sizer{
+      width:250px;
+    }
+		#instagram-list li {
+    		/*border-radius: 5px;*/
+    		float: left;
+    		margin-bottom: 20px;
+    		overflow: hidden;
+    		width: 250px;
+    		background-color:#fff;
+    		/*box-shadow: 0 0 3px 1px rgba(100, 100, 100, 0.2);*/
+    		padding-bottom:10px;
+		}
+			#instagram-list li .image{
+				vertical-align: top;
+				position:relative;
+    			overflow:hidden;
+			}
+        #instagram-list li .image #video {
+          color: #fff;
+          left: 50%;
+          margin-left: -20px;
+          position: absolute;
+          top: 50%;
+          margin-top: -20px;
+          -webkit-font-smoothing: antialiased;
+        } 
+
+			#instagram-list li .likes{
+				padding:10px;
+				float:left;
+			}
+
+			#instagram-list li .user{
+				padding:10px;
+			}
+				#instagram-list li .user a{
+					color:#8C8C8C;
+					text-decoration: none;
+				}
+
+			#instagram-list li .text{
+				padding:10px;
+			}
+
+				#instagram-list li .text a.hashtags{
+					/*float:left;*/
+					cursor:pointer;
+					color:#8C8C8C;
+					text-decoration: none;
+				}
+
+// MASONRY
+
+#instagram-list,
+#instagram-list li {
+  -webkit-transition-duration: 0.7s;
+     -moz-transition-duration: 0.7s;
+      -ms-transition-duration: 0.7s;
+       -o-transition-duration: 0.7s;
+          transition-duration: 0.7s;
+}
+
+#instagram-list {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+#instagram-list li {
+  -webkit-transition-property: left, right, top;
+     -moz-transition-property: left, right, top;
+      -ms-transition-property: left, right, top;
+       -o-transition-property: left, right, top;
+          transition-property: left, right, top;
+}
+
