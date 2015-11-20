@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-var mongoose = require('mongoose');
-var Search = require('../models/Search.js');
+    var mongoose = require('mongoose');
+    var Search = require('../models/Search.js');
 
-router.route('/searches').get(function (req, res) {
+router.route('/api/searches').get(function (req, res) {
     Search.find(function(err, searches) {
         if(err){
             // error handling
@@ -18,7 +18,6 @@ router.route('/searches').get(function (req, res) {
             Search.findOneAndUpdate({txt : req.body.txt}, { $inc : { count : 1}, $push : { time : Date.now()} }, function (err, result) {
                 res.send("Updated entry");
             });
-
         }
         else {
             var data = req.body;
