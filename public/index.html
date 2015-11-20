@@ -102,6 +102,7 @@
 </div>
 <div class="right_content">
 <div class="date_picker">
+	<div class="date_picker">
 		<div class="form-group">
 			<select id="day_week_month" class="form-control">
 				<option value="day">Daglig</option>
@@ -115,11 +116,12 @@
 		<table class="table table-striped">
 			<tr ng-repeat="item in searches">
 				<td>{{$index + 1}}</td>
-				<td>{{item.txt}}</td>
+				<td>#{{item.txt}}</td>
 				<td>{{item.count}}</td>
 			</tr>
 		</table>
 	</div>
+
 	<div class="bar_graph">
 		<div id="barchart" style="height: 250px;"></div>
 	</div>
