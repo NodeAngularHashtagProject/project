@@ -14,6 +14,7 @@ app.controller('InstagramCtrl', function($scope, $http) {
         clearTimeout(searchTag);
       }
       searchTag = setTimeout(fetch, 500);
+
     };
 
 	function fetch() {

@@ -1,0 +1,3 @@
+#!/bin/bash
+killall node
+nohup npm start </dev/null &>/dev/null &
