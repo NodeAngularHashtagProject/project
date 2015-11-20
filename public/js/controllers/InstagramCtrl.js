@@ -39,4 +39,13 @@ app.controller('InstagramCtrl', function($scope, $http) {
     );
   }
 
+  $scope.add = function(field){
+      $http.post(
+      '/api/searches', 
+      { txt : $scope.search}
+      ).success(function(data, status){
+
+      });
+    }
+
 });

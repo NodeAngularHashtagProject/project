@@ -9,7 +9,7 @@
 8 verbose unsafe-perm in lifecycle true
 9 info hashtag@0.0.0 Failed to exec start script
 10 verbose stack Error: hashtag@0.0.0 start: `node ./bin/www`
-10 verbose stack Exit status 143
+10 verbose stack Exit status 1
 10 verbose stack     at EventEmitter.<anonymous> (/usr/lib/node_modules/npm/lib/utils/lifecycle.js:213:16)
 10 verbose stack     at EventEmitter.emit (events.js:110:17)
 10 verbose stack     at ChildProcess.<anonymous> (/usr/lib/node_modules/npm/lib/utils/spawn.js:24:14)
@@ -24,7 +24,7 @@
 16 error npm  v2.11.3
 17 error code ELIFECYCLE
 18 error hashtag@0.0.0 start: `node ./bin/www`
-18 error Exit status 143
+18 error Exit status 1
 19 error Failed at the hashtag@0.0.0 start script 'node ./bin/www'.
 19 error This is most likely a problem with the hashtag package,
 19 error not with npm itself.
