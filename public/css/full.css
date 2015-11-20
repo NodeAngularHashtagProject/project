@@ -1,0 +1,47 @@
+
+.left_content{
+  	width:1060px;
+  	float:left;
+}
+.right_content {
+    float: left;
+    margin-left: 20px;
+    width: 250px;
+}
+	.all_time_favorite{
+		background:#fff;
+		padding: 10px;
+		margin-bottom:20px;
+		border: 1px solid transparent;
+      	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      	border-color:#d3e0e9;
+	}
+		table.table-striped{
+			width:100%;
+		}
+			table.table-striped tr:nth-child(odd){
+				background-color: #f9f9f9;
+			}
+	.date_picker{
+		background:#fff;
+		padding: 10px;
+		margin-bottom:20px;
+	}
+
+	.bar_graph{
+		background:#fff;
+		padding: 10px;
+		margin-bottom:20px;
+		border: 1px solid transparent;
+      	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      	border-color:#d3e0e9;
+	}
+
+	.histogram{
+		background:#fff;
+		padding: 10px;
+		margin-bottom:20px;
+		border: 1px solid transparent;
+      	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      	border-color:#d3e0e9;
+	}
