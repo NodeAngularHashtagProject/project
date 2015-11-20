@@ -24,9 +24,12 @@
 			}
 	.date_picker{
 		background:#fff;
-		padding: 10px;
 		margin-bottom:20px;
 	}
+
+		#day_week_month{
+			border-radius: 0;
+		}
 
 	.bar_graph{
 		background:#fff;
