@@ -4,3 +4,5 @@ var router = express.Router();
 router.route('/twitter').post(function (req, res){
 
 });
+
+module.exports = router;

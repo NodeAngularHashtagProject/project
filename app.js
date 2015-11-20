@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var searches = require('./routes/searches')
-var twitter = require('../routes/twitter')
+var searches = require('./routes/searches');
+var twitter = require('./routes/twitter');
 
 var mongoose = require('mongoose');
 
