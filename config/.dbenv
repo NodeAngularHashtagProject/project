@@ -1,0 +1,4 @@
+USER=admin
+PASS=hashatagdev
+URL=ds047514.mongolab.com:47514
+DB_NAME=hashatag

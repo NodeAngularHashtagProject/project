@@ -9,13 +9,20 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var searches = require('./routes/searches');
 var twitter = require('./routes/twitter');
+var env = require('node-env-file');
 
 var mongoose = require('mongoose');
 
 var app = express();
 
+env('./../config/.dbenv');
+
+//'mongodb://' + process.env.USERNAME +
+//':' + process.env.PASSWORD + '@' + process.env.URL + '/' + process.env.DB_NAME
 // connect mongoose
-mongoose.connect('mongodb://admin:hashatagdev@ds047514.mongolab.com:47514/hashatag', function(err) {
+mongoose.connect('mongodb://' + process.env.USER +
+    ':' + process.env.PASS + '@' + process.env.URL + '/' + process.env.DB_NAME
+    , function(err) {
   if(err) {
     console.log('connection error', err);
   } else {
