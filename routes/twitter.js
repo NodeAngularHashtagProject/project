@@ -107,12 +107,6 @@ router.route('/api/twitter/tag/:tagname').get(function (req, res) {
         res.json(tweets);
     });
 });
-// indtil videre kun for danmark, find woeid på https://developer.yahoo.com/geo/geoplanet/
-router.route('/api/twitter/trends/denmark').get(function (req, res) {
-    client.get('trends/place', {id: 23424796}, function (error, trends, response) {
-        res.json(trends);
-    });
-});
 
 router.route('/api/twitter/trends/location/:placename').get(function (req, res) {
     needle.get('http://where.yahooapis.com/v1/places.q(' + req.params.placename + ');start=0;count=1?format=json&appid=' + yahooID,
