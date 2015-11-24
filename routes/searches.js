@@ -39,6 +39,7 @@ router.route('/api/searches').get(function (req, res) {
 
 router.route('/api/searches/alltime').get(function(req, res) {
 
+    // queries all in Search. Sorts after count, and limits to ten first results.
     var q = Search.find( {} ).limit(10).sort( {'count' : -1} );
 
     q.exec(function(err, result) {

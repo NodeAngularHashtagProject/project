@@ -1,5 +1,7 @@
 app.controller('TwitterCtrl', function($scope, $http) {
 
+
+
 	var consumerKey = encodeURIComponent('Niev5NImTCoU2U7NQMVT30hfB')
 	var consumerSecret = encodeURIComponent('u6rUFXdPpbPqC5EiYKKsqLkTFDuqgZ6MOw61ZpKt8IocYyueKc');
 	// Create Base64 Object
