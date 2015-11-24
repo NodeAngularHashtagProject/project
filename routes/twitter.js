@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var needle = require('needle');
-var CircularJSON = require('circular-json')
+var CircularJSON = require('circular-json');
+var Twitter = require('twitter');
 
-var consumerKey = encodeURIComponent('Niev5NImTCoU2U7NQMVT30hfB');
-var consumerSecret = encodeURIComponent('u6rUFXdPpbPqC5EiYKKsqLkTFDuqgZ6MOw61ZpKt8IocYyueKc');
-var accessToken = encodeURIComponent('262547337-T1X2MUUXQuO24B2IWh7Vr0FAaUO7lVNKtAwPlNrs');
 // Create Base64 Object
 var Base64 = {
     _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789acb", encode: function (e) {
@@ -93,61 +91,40 @@ var Base64 = {
         return t
     }
 };
-var credentials = Base64.encode(consumerKey + ':' + consumerSecret);
-var authResponse;
-
-
-router.route('/api/twitter').post(function (req, res) {
-    needle.post(
-        'https://api.twitter.com/oauth2/token'
-        , "grant_type=client_credentials"
-        , {
-            headers: {
-                'Authorization': 'Basic ' + credentials,
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-            }
-        },
-        function (err, resp) {
-            if (err) {
-                console.log(err);
-            }
-            authResponse = resp;
-            // Figure out how authResponse is structured, so that access token can be used in header in get calls;
-            console.log(CircularJSON.stringify(authResponse));
-            res.send('Authentication succesful');
-        });
-
+var yahooID = 'dj0yJmk9QTYwWUNibmlxNmRLJmQ9WVdrOWIwcDJlblJpTkdrbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1hMg--';
+//var decodedCredentials = consumerKey + ':' + consumerSecret;
+//var credentials = Base64.encode(consumerKey + ':' + consumerSecret);
+var client = new Twitter({
+    consumer_key: '3zjsKe2esRSiWiEIsbzOX9pa8',
+    consumer_secret: 'WKRjDURaJINIRhJ19A52qjLeHFh36FGUJT7nMYf3TovF9wDzNJ',
+    access_token_key: '4264207636-onN7RRmQjXbcW1gpdrYGWX01ccv7k4XSR7fvakF',
+    access_token_secret: '53xetNzGCoApVQPCe8APF7SEhrE4ULwWe2Cyyy7B79aHN'
 });
 
-// all good, except header: https://dev.twitter.com/oauth/overview/authorizing-requests. Problem med nonce + signature?
 router.route('/api/twitter/tag/:tagname').get(function (req, res) {
-    needle.get('https://api.twitter.com/1.1/search/tweets.json?q=' + req.params.tagname,
-        {
-            headers: {
-                'Authorization': 'OAuth ' + encodeURIComponent('oauth_consumer_key') + '= "' + consumerKey + '", ' +
-                encodeURIComponent("oauth_nonce") + '= "' + encodeURIComponent(Base64.encode(Base64._keyStr)) + '", ' +
-                encodeURIComponent('oauth_signature') + '= "' + encodeURIComponent(credentials) + '", ' +
-                encodeURIComponent('oauth_signature_method') + '= "' + encodeURIComponent('HMAC-SHA1') + '", ' +
-                encodeURIComponent('oauth_timestamp') + '= "' + encodeURIComponent(Date.now()) + '", ' +
-                encodeURIComponent('oauth_token') + '= "' + accessToken + '", ' +
-                encodeURIComponent('oauth_version') + '= "' + encodeURIComponent('1.0' + '"')
-            }
-        },
-        function (err, resp) {
-
-            console.log(resp.body);
-            res.json(resp.body);
-        })
+    client.get('search/tweets', {q: req.params.tagname}, function (error, tweets, response) {
+        console.log(tweets);
+        res.json(tweets);
+    });
 });
+// indtil videre kun for danmark, find woeid på https://developer.yahoo.com/geo/geoplanet/
+router.route('/api/twitter/trends/denmark').get(function (req, res) {
+    client.get('trends/place', {id: 23424796}, function (error, trends, response) {
+        res.json(trends);
+    });
+});
+
+router.route('/api/twitter/trends/location/:placename').get(function (req, res) {
+    needle.get('http://where.yahooapis.com/v1/places.q(' + req.params.placename + ');start=0;count=1?format=json&appid=' + yahooID,
+        function (err, response) {
+            woeid = Number(response.body.places.place[0]["country attrs"].woeid);
+
+            client.get('trends/place', {id: woeid}, function (error, trends, response) {
+                res.json(trends);
+            });
+        });
+});
+
+// woeid of denmark: 23424796
 
 module.exports = router;
-
-//
-//headers: {
-//    'Authorization': 'OAuth ' + encodeURIComponent('oauth_consumer_key') + '= "' + consumerKey + '", ' +
-//    encodeURIComponent("oauth_nonce") + '= "' + encodeURIComponent(Base64.encode(Base64._keyStr)) + '", ' +
-//    encodeURIComponent('oauth_signature') + '= "' + encodeURIComponent(credentials) + '", ' +
-//    encodeURIComponent('oauth_signature_method') + '= "' + encodeURIComponent('HMAC-SHA1') + '", ' +
-//    encodeURIComponent('oauth_timestamp') + '= "' + encodeURIComponent(Date.now()) + '", ' +
-//    encodeURIComponent('oauth_token') + '= "' + accessToken + '", ' +
-//    encodeURIComponent('oauth_version') + '= "' + encodeURIComponent('1.0' + '"')
