@@ -21,6 +21,7 @@ var client = new Twitter({
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
+/* Method for retrieving posts from twitter and instagram as uniform objects. */
 router.route('/api/posts/:tag/:count').get(function (req, res) {
 
     getTwitterByTag(req.params.tag, function(err, tweets) {
@@ -124,7 +125,7 @@ router.route('/api/twitter/trends/location/:country').get(function (req, res) {
     });
 });
 
-new CronJob('32 15 * * *', function () {
+new CronJob('00 2 * * *', function () {
     console.log("Running twitter cron job.");
     fs.readFile('config/twitter_countries.json', 'utf8', function (err, countries) {
         if (err) {
