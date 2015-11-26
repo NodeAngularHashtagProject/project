@@ -4,7 +4,7 @@ var needle = require('needle');
 var Twitter = require('twitter');
 var env = require('node-env-file');
 
-env( './../config/.twitterenv');
+env( 'config/.twitterenv');
 
 // Create Base64 Object
 var yahooID = process.env.YAHOO_ID;

@@ -15,7 +15,7 @@ var mongoose = require('mongoose');
 
 var app = express();
 
-env('./../config/.dbenv');
+env('config/.dbenv');
 
 //'mongodb://' + process.env.USERNAME +
 //':' + process.env.PASSWORD + '@' + process.env.URL + '/' + process.env.DB_NAME
