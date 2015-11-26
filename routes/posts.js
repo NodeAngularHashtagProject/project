@@ -41,7 +41,7 @@ router.route('/api/posts/:tag/:count').get(function (req, res) {
                         if(i < tweetsArr.length){
                             tweetObj = {
                                 source : "twitter",
-                                link : 'https://twitter.com/NFL/status/' + tweetsArr[i].id_str,
+                                link : 'https://twitter.com/' + tweetsArr[i].user.screen_name + '/status/' + tweetsArr[i].id_str,
                                 mediaurl : null,
                                 text :  tweetsArr[i].text,
                                 username : tweetsArr[i].user.screen_name,
@@ -124,7 +124,7 @@ router.route('/api/twitter/trends/location/:country').get(function (req, res) {
     });
 });
 
-new CronJob('0 2 * * *', function () {
+new CronJob('32 15 * * *', function () {
     console.log("Running twitter cron job.");
     fs.readFile('config/twitter_countries.json', 'utf8', function (err, countries) {
         if (err) {
