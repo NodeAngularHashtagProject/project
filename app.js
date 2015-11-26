@@ -20,8 +20,8 @@ env('./../config/.dbenv');
 //'mongodb://' + process.env.USERNAME +
 //':' + process.env.PASSWORD + '@' + process.env.URL + '/' + process.env.DB_NAME
 // connect mongoose
-mongoose.connect('mongodb://' + process.env.USER +
-    ':' + process.env.PASS + '@' + process.env.URL + '/' + process.env.DB_NAME
+mongoose.connect('mongodb://' + process.env.DB_LOGIN +
+    ':' + process.env.DB_PASS + '@' + process.env.URL + '/' + process.env.DB_NAME
     , function(err) {
   if(err) {
     console.log('connection error', err);

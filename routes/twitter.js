@@ -17,7 +17,6 @@ var client = new Twitter({
 
 router.route('/api/twitter/tag/:tagname').get(function (req, res) {
     client.get('search/tweets', {q: req.params.tagname}, function (error, tweets, response) {
-        console.log(tweets);
         res.json(tweets);
     });
 });
