@@ -24,11 +24,19 @@ router.route('/api/twitter/tag/:tagname').get(function (req, res) {
 router.route('/api/twitter/trends/location/:placename').get(function (req, res) {
     needle.get('http://where.yahooapis.com/v1/places.q(' + req.params.placename + ');start=0;count=1?format=json&appid=' + yahooID,
         function (err, response) {
-            woeid = Number(response.body.places.place[0]["country attrs"].woeid);
+            console.log(response.body.places.total)
+            if(response.body.places.total === 0){
+                // error handling
+                res.json({msg : "could not get woeid for " + req.params.placename})
+            }
+            else{
+                woeid = Number(response.body.places.place[0]["country attrs"].woeid);
 
-            client.get('trends/place', {id: woeid}, function (error, trends, response) {
-                res.json(trends);
-            });
+                client.get('trends/place', {id: woeid}, function (error, trends, response) {
+                    res.json(trends);
+                });
+            }
+
         });
 });
 
