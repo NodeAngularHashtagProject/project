@@ -88,6 +88,7 @@ var getTwitterByTag = function (tag, callback) {
 };
 
 var getInstagramByTag = function (tag, count, callback) {
+    tag = tag.replace(/\s+/g, ''); // regex!
     needle.get('https://api.instagram.com/v1/tags/' + encodeURIComponent(tag) + '/media/recent?client_id=' +
         process.env.CLIENT_ID + '&count=' + count, function (err, response) {
         if(err) {
