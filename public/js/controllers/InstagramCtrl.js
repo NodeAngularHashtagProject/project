@@ -2,6 +2,7 @@ app.controller('InstagramCtrl', function($scope, $http) {
 
 	var searchTag;
   $scope.loading = true;
+  $scope.overlay = true;
 
 	//REMOVE THIS WHEN READY
 	if($scope.search === undefined){
@@ -24,6 +25,7 @@ app.controller('InstagramCtrl', function($scope, $http) {
       .success(function(response){
         $scope.posts = response;
         $scope.loading = false;
+        $scope.overlay = false;
       });
   }
 
