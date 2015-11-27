@@ -10,10 +10,10 @@
 	<meta name="viewport" content="width=device-width" />
 	
 	<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
@@ -66,6 +66,9 @@
         			name="field"
         		/>
         	</form>
+        	<span class="icons">
+            	<i data-ng-show="loading" class="fa fa-spinner fa-spin"></i>
+        	</span>
         </div>
     </div>
 
@@ -78,24 +81,26 @@
 </div>
 <div class="wrapper">
 <div class="left_content" ng-controller="InstagramCtrl">
-	{{please}}
 	<ul id="instagram-list" class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
 		<div class="grid-sizer"></div>
-    	<li class="instagram-item" ng-repeat="item in items">
+    	<li class="instagram-item" ng-repeat="item in posts">
+    		<div class="gettype" style="position:absolute; z-index:200; width: 30px;">
+    			<span class="ribbon {{item.source}}"><img src="images/{{item.source}}_white.png" width="20px"/></span>
+    		</div>
     		<div class="videourl" style="display:none">{{item.videos.low_bandwidth.url}}</div>
     		<div class="image">
     			<a ng-href="{{item.link}}" target="_blank">
-            		<img width="250" ng-src="{{ item.images.standard_resolution.url }}" src="" alt="">
+            		<img width="250" ng-src="{{ item.mediaurl }}" src="" alt="">
         		</a>
         	</div>
         	<div class="likes">
         		<span class="fa fa-heart"> {{item.likes.count}}</span>
         	</div>
         	<div class="user">
-        		<a ng-href="https://instagram.com/{{item.user.username}}" target="_blank">{{item.user.username}}</a>
+        		<a ng-href="https://instagram.com/{{item.username}}" target="_blank">{{item.username}}</a>
        		</div>
         	<div class="text">
-        		{{item.caption.text}}
+        		{{item.text}}
         	</div>
     	</li>
 	</ul>

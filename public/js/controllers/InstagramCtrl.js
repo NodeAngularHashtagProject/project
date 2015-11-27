@@ -4,7 +4,7 @@ app.controller('InstagramCtrl', function($scope, $http) {
 
 	//REMOVE THIS WHEN READY
 	if($scope.search === undefined){
-		$scope.search = "Hashatagdev";
+		$scope.search = "Copenhagen";
 		$scope.count = 20;
 		fetch();
 	}
@@ -17,7 +17,7 @@ app.controller('InstagramCtrl', function($scope, $http) {
 
     };
 
-	function fetch() {
+	/*function fetch() {
   		$http.jsonp("https://api.instagram.com/v1/tags/" 
         + $scope.search + 
           "/media/recent?client_id=d05f22027bd5451dbe9ac35b29526c7f&count=" 
@@ -37,6 +37,13 @@ app.controller('InstagramCtrl', function($scope, $http) {
         $scope.related = response;
       }
     );
+  }*/
+
+  function fetch(){
+    $http.get('api/posts/' + $scope.search + '/' + $scope.count)
+      .success(function(response){
+        $scope.posts = response;
+      });
   }
 
   $scope.add = function(field){
