@@ -22,7 +22,7 @@ var client = new Twitter({
 });
 
 /* Method for retrieving posts from twitter and instagram as uniform objects. */
-router.route('/api/posts/:tag/:count').get(function (req, res) {
+router.route('/api/posts/:tag').get(function (req, res) {
 
     getTwitterByTag(req.params.tag, function(err, tweets) {
         if(err){
@@ -30,7 +30,7 @@ router.route('/api/posts/:tag/:count').get(function (req, res) {
         }
         else {
             var tweetsArr = tweets.statuses;
-            getInstagramByTag(req.params.tag, req.params.count, function(err, posts){
+            getInstagramByTag(req.params.tag, 20, function(err, posts){
                 if(err) {
                     console.log(err);
                 }
@@ -40,10 +40,13 @@ router.route('/api/posts/:tag/:count').get(function (req, res) {
                     var length = (instaArr.length > tweetsArr.length) ? instaArr.length : tweetsArr.length;
                     for(i = 0; i < length; i++){
                         if(i < tweetsArr.length){
+                            var twMediaUrl;
+                            if(tweetsArr[i].media){ twMediaUrl = tweetsArr[i].media.display_url; }
+                            else { twMediaUrl = null; }
                             tweetObj = {
                                 source : "twitter",
                                 link : 'https://twitter.com/' + tweetsArr[i].user.screen_name + '/status/' + tweetsArr[i].id_str,
-                                mediaurl : null,
+                                mediaurl : twMediaUrl,
                                 text :  tweetsArr[i].text,
                                 username : tweetsArr[i].user.screen_name,
                                 likes : tweetsArr[i].favorite_count
@@ -69,15 +72,8 @@ router.route('/api/posts/:tag/:count').get(function (req, res) {
     });
 });
 
-
-//router.route('/api/twitter/tag/:tagname').get(function (req, res) {
-//    client.get('search/tweets', {q: req.params.tagname}, function (error, tweets, response) {
-//        res.json(tweets);
-//    });
-//});
-
 var getTwitterByTag = function (tag, callback) {
-    client.get('search/tweets', {q: tag}, function (error, tweets, response) {
+    client.get('search/tweets', {q: encodeURIComponent(tag)}, function (error, tweets, response) {
         if(error){
             process.nextTick(function(){
                 callback(error, null);
@@ -91,15 +87,8 @@ var getTwitterByTag = function (tag, callback) {
     });
 };
 
-//router.route('/api/instagram/tag/:tagname/:count').get(function (req, res) {
-//    needle.get('https://api.instagram.com/v1/tags/' + req.params.tagname + '/media/recent?client_id=' +
-//        process.env.CLIENT_ID + '&count=' + req.params.count, function (err, response) {
-//        res.json(response.body.data);
-//    })
-//});
-
 var getInstagramByTag = function (tag, count, callback) {
-    needle.get('https://api.instagram.com/v1/tags/' + tag + '/media/recent?client_id=' +
+    needle.get('https://api.instagram.com/v1/tags/' + encodeURIComponent(tag) + '/media/recent?client_id=' +
         process.env.CLIENT_ID + '&count=' + count, function (err, response) {
         if(err) {
             process.nextTick(function(){
@@ -121,6 +110,17 @@ router.route('/api/twitter/trends/location/:country').get(function (req, res) {
         }
         else {
             res.json(result.trends);
+        }
+    });
+});
+
+router.route('/api/twitter/trends/').get(function (req, res) {
+    Trends.find( function (err, result) {
+        if(err){
+            res.json(err);
+        }
+        else {
+            res.json(result);
         }
     });
 });

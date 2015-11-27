@@ -40,7 +40,7 @@ app.controller('InstagramCtrl', function($scope, $http) {
   }*/
 
   function fetch(){
-    $http.get('api/posts/' + $scope.search + '/' + $scope.count)
+    $http.get('api/posts/' + $scope.search)
       .success(function(response){
         $scope.posts = response;
       });
