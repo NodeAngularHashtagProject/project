@@ -41,7 +41,7 @@ router.route('/api/posts/:tag').get(function (req, res) {
                     for(i = 0; i < length; i++){
                         if(i < tweetsArr.length){
                             var twMediaUrl;
-                            if(tweetsArr[i].media){ twMediaUrl = tweetsArr[i].media.display_url; }
+                            if(tweetsArr[i].entities.media){ twMediaUrl = tweetsArr[i].entities.media[0].media_url; }
                             else { twMediaUrl = null; }
                             tweetObj = {
                                 source : "twitter",
