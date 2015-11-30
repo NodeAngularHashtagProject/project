@@ -1,6 +1,11 @@
 $(window).load(function(){
 
   regex();
+  clickevent();
+
+  $("#instagram-list li .text").click(function(){
+    alert("test");
+  });
 
   // INITIALIZE MASONRY SELECTOR
  	var msnry = new Masonry('#instagram-list',{
@@ -15,17 +20,6 @@ $(window).load(function(){
     setTimeout(getUrl, 1500);
     setTimeout(regex, 1500);
   },100);
-
-
-  // ADD CLICKED HASHTAG TO SEARCHBAR
-  /*function clickevent(){
-    $('#instagram-list li .text a.hashtags').click(function() {
-      var $hashtag = $(this).text();
-      var $formattedText = $hashtag.replace(/#([^ ]+)/g, "$1");
-      $('#search').val($formattedText);
-      //angular.element(document.getElementById('search')).scope().change().setTimeout(1500);
-    });
-  }*/
 
 });
 
@@ -46,6 +40,17 @@ $(window).resize(function(){
   },100);
     }
 });
+
+// ADD CLICKED HASHTAG TO SEARCHBAR
+function clickevent(){
+  $('#instagram-list li .text a.hashtags').click(function() {
+    alert("test");
+    var $hashtag = $(this).text();
+    var $formattedText = $hashtag.replace(/#([^ ]+)/g, "$1");
+    $('#search').val($formattedText);
+    //angular.element(document.getElementById('search')).scope().change().setTimeout(1500);
+  });
+}
 
 function regex(){
   // REGEX FOR HASHTAGS
