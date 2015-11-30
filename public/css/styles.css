@@ -186,7 +186,7 @@ body{
         } 
 
       #instagram-list li .likes,
-      #twitter-list li .likes,{
+      #twitter-list li .likes{
         padding:10px;
         float:left;
       }
