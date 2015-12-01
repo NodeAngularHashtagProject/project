@@ -2,7 +2,7 @@ app.controller('SearchesCtrl', function($scope, $http) {
 
 	var searchTag;
 	getAllCountries();
-	$scope.country = "Canada";
+	$scope.country = "Australia";
 	alltime();
 	trends();
 	
