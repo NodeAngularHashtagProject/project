@@ -131,6 +131,16 @@
 		</table>
 	</div>
 
+	<div class="trends" ng-controller="SearchesCtrl">
+		<h3>Trends i {{country}}</h3>
+		<table class="table table-striped">
+			<tr ng-repeat="trend in trends">
+				<td>{{$index + 1}}</td>
+				<td>{{trend}}</td>
+			</tr>
+		</table>
+	</div>
+
 	<div class="bar_graph">
 		<div id="barchart" style="height: 250px;"></div>
 	</div>
