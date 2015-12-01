@@ -110,7 +110,7 @@ router.route('/api/twitter/trends/location/:country').get(function (req, res) {
             res.json(err);
         }
         else {
-            res.json(result);
+            res.json(result[0].trends);
         }
     });
 });
@@ -121,7 +121,7 @@ router.route('/api/twitter/trends/').get(function (req, res) {
             res.json(err);
         }
         else {
-            res.json(result);
+            res.json(result);            
         }
     });
 });

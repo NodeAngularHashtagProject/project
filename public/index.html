@@ -78,10 +78,7 @@
     </div>
 
 </div>
-<!--<div class="filter">
-		<input type='checkbox' name='twitter' value='valuable' id="twitter"/><label for="twitter"></label>
-		<input type='checkbox' name='instagram' value='valuable' id="instagram"/><label for="instagram"></label>
-</div>-->
+
 <div class="wrapper">
 <div class="left_content" ng-controller="InstagramCtrl">
 	<ul id="instagram-list" class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
@@ -120,7 +117,8 @@
 			</select>
 		</div>
 	</div>
-	<div class="all_time_favorite" ng-controller="SearchesCtrl">
+	<div ng-controller="SearchesCtrl">
+	<div class="all_time_favorite">
 		<h3>Mest søgte tags</h3>
 		<table class="table table-striped">
 			<tr ng-repeat="item in searches">
@@ -131,14 +129,22 @@
 		</table>
 	</div>
 
-	<div class="trends" ng-controller="SearchesCtrl">
+	<div class="form-group">
+		<select class="form-control" ng-model="country" ng-change="changeCountry()">
+			<option ng-repeat="trend in trendC | unique: 'country'" value="{{trend.country}}">{{trend.country}}</option>
+		</select>
+	</div>
+
+	<div class="trends" >
 		<h3>Trends i {{country}}</h3>
 		<table class="table table-striped">
 			<tr ng-repeat="trend in trends">
 				<td>{{$index + 1}}</td>
-				<td>{{trend}}</td>
+				<td>{{trend.name}}</td>
 			</tr>
 		</table>
+	</div>
+
 	</div>
 
 	<div class="bar_graph">

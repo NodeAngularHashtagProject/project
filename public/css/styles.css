@@ -17,10 +17,23 @@ body{
   }
 
     .overlay div {
-    margin-left:auto;
-    margin-right:auto;
-    width:75px;
-    margin-top:250px;
+      margin-left:auto;
+      margin-right:auto;
+      width:75px;
+      margin-top:250px;
+    }
+
+  .overlay_trends {
+    height: 400px;
+    width: 100%;
+    position: absolute;
+    background: #fff;
+  }
+    .overlay_trends div {
+      margin-left:auto;
+      margin-right:auto;
+      width:75px;
+      margin-top:250px;
     }
 
   span.start{

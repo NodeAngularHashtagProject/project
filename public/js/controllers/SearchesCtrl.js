@@ -1,6 +1,8 @@
 app.controller('SearchesCtrl', function($scope, $http) {
 
-	$scope.country = "Canada";
+	var searchTag;
+	getAllCountries();
+	$scope.country = "Denmark";
 	alltime();
 	trends();
 	
@@ -16,9 +18,39 @@ app.controller('SearchesCtrl', function($scope, $http) {
   	function trends(){
   		$http.get("/api/twitter/trends/location/" + $scope.country)
   			.success(function(data) { 
-  				$scope.trends = data[0];
+  				$scope.trends = data;
   		    }
       	);
   	}
 
-});
+  	function getAllCountries(){
+  		$http.get("/api/twitter/trends/")
+  			.success(function(data) { 
+  				$scope.trendC = data;
+  		    }
+      	);
+  	}
+
+  	$scope.changeCountry = function() {
+      if (searchTag) {
+        clearTimeout(searchTag);
+      }
+      searchTag = setTimeout(trends, 500);
+    };
+
+}).filter('unique', function() {
+   return function(collection, keyname) {
+      var output = [], 
+          keys = [];
+
+      angular.forEach(collection, function(item) {
+          var key = item[keyname];
+          if(keys.indexOf(key) === -1) {
+              keys.push(key);
+              output.push(item);
+          }
+      });
+
+      return output;
+   };
+});;
