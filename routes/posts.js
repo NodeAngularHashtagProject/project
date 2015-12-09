@@ -23,7 +23,7 @@ var client = new Twitter({
 
 /* Method for retrieving posts from twitter and instagram as uniform objects. */
 router.route('/api/posts/:tag').get(function (req, res) {
-
+    console.log("searching for " + encodeURIComponent(req.params.tag));
     getTwitterByTag(req.params.tag, function(err, tweets) {
         if(err){
             console.log(err);
@@ -36,6 +36,7 @@ router.route('/api/posts/:tag').get(function (req, res) {
                 }
                 else {
                     var instaArr = posts;
+                    console.log("length of twitterArr: " + tweetsArr.length + ", length of instaArr: " + instaArr.length);
                     var result = [];
                     var length = (instaArr.length > tweetsArr.length) ? instaArr.length : tweetsArr.length;
                     for(i = 0; i < length; i++){
@@ -58,10 +59,16 @@ router.route('/api/posts/:tag').get(function (req, res) {
                                 source : "instagram",
                                 link : instaArr[i].link,
                                 mediaurl : instaArr[i].images.standard_resolution.url,
-                                text : instaArr[i].caption.text,
+                                //text : instaArr[i].caption.text,
                                 username : instaArr[i].user.username,
                                 likes : instaArr[i].likes.count
                             };
+                            if(instaArr[i].text != null){
+                                intaObj.text = instaArr[i].text;
+                            }
+                            else{
+                                instaObj.text = null;
+                            }
                             result.push(instaObj);
                         }
                     }
@@ -168,7 +175,6 @@ var trendsUpdater = function (i, countries) {
                             data.trends = trends[0].trends;
                             Trends.create(data, function (err, post) {
                                 if (err) {
-
                                     console.log("Twitter cron job failed to save to db.")
                                 }
                                 else {
