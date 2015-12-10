@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-    var mongoose = require('mongoose');
-    var Search = require('../models/Search.js');
+var mongoose = require('mongoose');
+var Search = require('../models/Search.js');
 
+/* Returns all search words from the database
+ * */
 router.route('/api/searches').get(function (req, res) {
     Search.find(function(err, searches) {
         if(err){
@@ -11,6 +13,9 @@ router.route('/api/searches').get(function (req, res) {
         }
         res.json(searches);
     });
+    /* Posts a new search word to the database, or if it already exists, increments search count of word by 1,
+     * as well as adding a timestamp for the time of this search.
+     * */
 }).post(function (req, res) {
 
     Search.count({txt: req.body.txt}, function (err, count){
@@ -36,7 +41,9 @@ router.route('/api/searches').get(function (req, res) {
 
 });
 
-
+/* Returns the ten most searched words from database.
+*
+* */
 router.route('/api/searches/alltime').get(function(req, res) {
 
     // queries all in Search. Sorts after count, and limits to ten first results.

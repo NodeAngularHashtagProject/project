@@ -12,7 +12,7 @@ var Trends = require('../models/Trends.js');
 env('config/.twitterenv');
 env('config/.instagramenv');
 
-// Create Base64 Object
+// Setting up environmental variables
 var yahooID = process.env.YAHOO_ID;
 var client = new Twitter({
     consumer_key: process.env.CONSUMER_KEY,
@@ -21,7 +21,11 @@ var client = new Twitter({
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-/* Method for retrieving posts from twitter and instagram as uniform objects. */
+/* Method for retrieving posts from twitter and instagram as uniform objects.
+ * PRE: a tag to search for has been provided in url call to API method.
+ * POST: returns a JSON array containing twitter and instagram posts
+ * */
+
 router.route('/api/posts/:tag').get(function (req, res) {
     console.log("searching for " + encodeURIComponent(req.params.tag));
     getTwitterByTag(req.params.tag, function(err, tweets) {
@@ -29,16 +33,16 @@ router.route('/api/posts/:tag').get(function (req, res) {
             console.log(err);
         }
         else {
-            var tweetsArr = tweets.statuses;
+            var tweetsArr = tweets.statuses; // tweets have been found and put into tweetsArr
             getInstagramByTag(req.params.tag, 20, function(err, posts){
                 if(err) {
                     console.log(err);
                 }
                 else {
-                    var instaArr = posts;
-                    console.log("length of twitterArr: " + tweetsArr.length + ", length of instaArr: " + instaArr.length);
+                    var instaArr = posts; // posts have been found and put into instaArr
                     var result = [];
                     var length = (instaArr.length > tweetsArr.length) ? instaArr.length : tweetsArr.length;
+                    // Loops through all objects in the two arrays, to create new uniform objects for front-end to handle
                     for(i = 0; i < length; i++){
                         if(i < tweetsArr.length){
                             var twMediaUrl;
@@ -78,7 +82,10 @@ router.route('/api/posts/:tag').get(function (req, res) {
         }
     });
 });
-
+/* Method for retrieving tweets from twitters API, and use callback function when completed
+ * PRE: valid tag parameter supplied
+ * POST: Tweets found, callback method can react.
+ * */
 var getTwitterByTag = function (tag, callback) {
     client.get('search/tweets', {q: encodeURIComponent(tag)}, function (error, tweets, response) {
         if(error){
@@ -93,7 +100,10 @@ var getTwitterByTag = function (tag, callback) {
         }
     });
 };
-
+/* Method for retrieving instagram posts from API, and use callback function when completed
+ * PRE: valid tag parameter supplied
+ * POST: Posts found, callback method can react.
+ * */
 var getInstagramByTag = function (tag, count, callback) {
     tag = tag.replace(/\s+/g, ''); // regex!
     needle.get('https://api.instagram.com/v1/tags/' + encodeURIComponent(tag) + '/media/recent?client_id=' +
@@ -110,7 +120,10 @@ var getInstagramByTag = function (tag, count, callback) {
         }
     })
 };
-
+/* Returns trends for specific country from database
+ * PRE: country parameter exists in db.
+ * POST: array of trends for country returned to front-end
+ * */
 router.route('/api/twitter/trends/location/:country').get(function (req, res) {
     Trends.find({country: req.params.country}, function (err, result) {
         if (err) {
@@ -121,7 +134,9 @@ router.route('/api/twitter/trends/location/:country').get(function (req, res) {
         }
     });
 });
-
+/* Returns trends for all countries on the database.
+ * POST: array of countries containing trends is returned.
+ * */
 router.route('/api/twitter/trends/').get(function (req, res) {
     Trends.find( function (err, result) {
         if(err){
@@ -132,7 +147,10 @@ router.route('/api/twitter/trends/').get(function (req, res) {
         }
     });
 });
-
+/* Cronjob that runs every night at 02:00, updates the trends for all countries in database
+ * by finding WOEID (from yahoo) for countries in config list, and finds trending topics on twitter
+ * through the twitter API.
+ * */
 new CronJob('00 2 * * *', function () {
     console.log("Running twitter cron job.");
     fs.readFile('config/twitter_countries.json', 'utf8', function (err, countries) {
@@ -153,6 +171,9 @@ new CronJob('00 2 * * *', function () {
     });
 }, null, true, 'Europe/Copenhagen');
 
+/* Helper method for the cronjob. Does the actual work.. Maybe we should split it up in a method
+ * finding woeid, another using twitter api etc.?
+ * */
 var trendsUpdater = function (i, countries) {
     console.log("c in cronjobtest: " + countries[i].country);
     needle.get('http://where.yahooapis.com/v1/places.q(' + countries[i].country + ');start=0;count=1?format=json&appid=' + yahooID,
