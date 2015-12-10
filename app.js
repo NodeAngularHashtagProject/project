@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var searches = require('./routes/searches');
 var posts = require('./routes/posts');
+var trends = require('./routes/trends');
 var env = require('node-env-file');
 
 var mongoose = require('mongoose');
@@ -43,9 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use(searches);
-//app.use(twitter);
-//app.use(instagram);
 app.use(posts);
+app.use(trends);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
