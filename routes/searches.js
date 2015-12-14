@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var Search = require('../models/Search.js');
 
 /* Returns all search words from the database
+*
+* Written by Kenneth
  * */
 router.route('/api/searches').get(function (req, res) {
     Search.find(function(err, searches) {
@@ -15,6 +17,8 @@ router.route('/api/searches').get(function (req, res) {
     });
     /* Posts a new search word to the database, or if it already exists, increments search count of word by 1,
      * as well as adding a timestamp for the time of this search.
+     *
+     * Written by Kenneth
      * */
 }).post(function (req, res) {
 
@@ -43,6 +47,7 @@ router.route('/api/searches').get(function (req, res) {
 
 /* Returns the ten most searched words from database.
 *
+* Written by Mads
 * */
 router.route('/api/searches/alltime').get(function(req, res) {
 

@@ -20,10 +20,11 @@ var client = new Twitter({
 /* Method for retrieving posts from twitter and instagram as uniform objects.
  * PRE: a tag to search for has been provided in url call to API method.
  * POST: returns a JSON array containing twitter and instagram posts
+ *
+ * Written by Kenneth & Mads
  * */
 
 router.route('/api/posts/:tag').get(function (req, res) {
-    console.log("searching for " + encodeURIComponent(req.params.tag));
     getTwitterByTag(req.params.tag, function(err, tweets) {
         if(err){
             console.log(err);
@@ -63,8 +64,8 @@ router.route('/api/posts/:tag').get(function (req, res) {
                                 username : instaArr[i].user.username,
                                 likes : instaArr[i].likes.count
                             };
-                            if(instaArr[i].text != null){
-                                intaObj.text = instaArr[i].text;
+                            if(instaArr[i].caption.text != null){
+                                instaObj.text = instaArr[i].caption.text;
                             }
                             else{
                                 instaObj.text = null;
@@ -81,6 +82,8 @@ router.route('/api/posts/:tag').get(function (req, res) {
 /* Method for retrieving tweets from twitters API, and use callback function when completed
  * PRE: valid tag parameter supplied
  * POST: Tweets found, callback method can react.
+ *
+ * Written by Mads
  * */
 var getTwitterByTag = function (tag, callback) {
     client.get('search/tweets', {q: encodeURIComponent(tag)}, function (error, tweets, response) {
@@ -99,6 +102,8 @@ var getTwitterByTag = function (tag, callback) {
 /* Method for retrieving instagram posts from API, and use callback function when completed
  * PRE: valid tag parameter supplied
  * POST: Posts found, callback method can react.
+ *
+ * Written by Mads
  * */
 var getInstagramByTag = function (tag, count, callback) {
     tag = tag.replace(/\s+/g, ''); // regex!

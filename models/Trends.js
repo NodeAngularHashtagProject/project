@@ -1,3 +1,7 @@
+/*
+ * Written by Mads
+ * */
+
 var mongoose = require('mongoose');
 
 var trendsSchema = new mongoose.Schema({

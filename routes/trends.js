@@ -22,6 +22,8 @@ var client = new Twitter({
 /* Returns trends for specific country from database. Buggy! Crashes if result array is empty.
  * PRE: country parameter exists in db.
  * POST: array of trends for country returned to front-end
+ *
+ * Written by Kenneth
  * */
 router.route('/api/twitter/trends/location/:country').get(function (req, res) {
     Trends.find({country: req.params.country}, function (err, result) {
@@ -35,6 +37,8 @@ router.route('/api/twitter/trends/location/:country').get(function (req, res) {
 });
 /* Returns trends for all countries on the database.
  * POST: array of countries containing trends is returned.
+ *
+ * Written by Kenneth
  * */
 router.route('/api/twitter/trends/').get(function (req, res) {
     Trends.find( function (err, result) {
@@ -47,28 +51,11 @@ router.route('/api/twitter/trends/').get(function (req, res) {
     });
 });
 
-router.route('/api/cronjobtest/').get(function (req, res) {
-    fs.readFile('config/twitter_countries.json', 'utf8', function (err, countries) {
-        if (err) {
-            console.log("failed to read twitter_countries.json")
-        }
-        else {
-            countries = JSON.parse(countries);
-            Trends.remove({}, function (err) {
-                if (err) {
-                    console.log(err)
-                } else {
-                    trendsUpdater(0, countries);
-                    console.log("Twitter cron job stopped running.");
-                }
-            });
-        }
-    });
-});
-
 /* Cronjob that runs every night at 02:00, updates the trends for all countries in database
  * by finding WOEID (from yahoo) for countries in config list, and finds trending topics on twitter
  * through the twitter API.
+ *
+ * Written by Mads
  * */
 new CronJob('00 2 * * *', function () {
     console.log("Running twitter cron job.");
@@ -92,6 +79,8 @@ new CronJob('00 2 * * *', function () {
 
 /* Helper method for the cronjob. Does the actual work.. Maybe we should split it up in a method
  * finding woeid, another using twitter api etc.?
+ *
+ * Written by Kenneth & Mads
  * */
 var trendsUpdater = function (i, countries) {
     console.log("c in cronjobtest: " + countries[i].country);
